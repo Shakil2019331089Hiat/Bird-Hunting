@@ -101,7 +101,6 @@ void iDraw()
 		iSetColor(255, 255, 255);
 		if (bow_dir == 1)
 		{
-
 			iLine(bow_x + 1500, bow_y + 120, bow_x + 1550, bow_y + 180);
 			iLine(bow_x + 1550, bow_y + 180, bow_x + 1600, bow_y + 190);
 			iLine(bow_x + 1600, bow_y + 190, bow_x + 1650, bow_y + 160);
@@ -109,12 +108,9 @@ void iDraw()
 			iLine(bow_x + 1700, bow_y + 190, bow_x + 1750, bow_y + 180);
 			iLine(bow_x + 1750, bow_y + 180, bow_x + 1800, bow_y + 120);
 			iLine(bow_x + 1500, bow_y + 120, bow_x + 1800, bow_y + 120);
-
-
 		}
 		else if (bow_dir == 0)
 		{
-
 			iLine(bow_x + 1800, bow_y + 120, bow_x + 1785, bow_y + 195);
 			iLine(bow_x + 1785, bow_y + 195, bow_x + 1735, bow_y + 235);
 			iLine(bow_x + 1735, bow_y + 235, bow_x + 1680, bow_y + 225);
@@ -122,12 +118,9 @@ void iDraw()
 			iLine(bow_x + 1650, bow_y + 275, bow_x + 1590, bow_y + 290);
 			iLine(bow_x + 1590, bow_y + 290, bow_x + 1525, bow_y + 258);
 			iLine(bow_x + 1525, bow_y + 258, bow_x + 1800, bow_y + 120);
-
-
 		}
 		else if (bow_dir == 2)
 		{
-
 			iLine(bow_x + 1500, bow_y + 120, bow_x + 1515, bow_y + 195);
 			iLine(bow_x + 1515, bow_y + 195, bow_x + 1565, bow_y + 235);
 			iLine(bow_x + 1565, bow_y + 235, bow_x + 1620, bow_y + 225);
@@ -135,9 +128,9 @@ void iDraw()
 			iLine(bow_x + 1650, bow_y + 275, bow_x + 1710, bow_y + 290);
 			iLine(bow_x + 1710, bow_y + 290, bow_x + 1775, bow_y + 258);
 			iLine(bow_x + 1500, bow_y + 120, bow_x + 1775, bow_y + 258);
-
-
 		}
+
+	iSetColor(255, 0, 0);
 	if (num_arrow >= 0)
 	{
 		if (arrow_dir == 1)
@@ -148,17 +141,12 @@ void iDraw()
 		}
 		else if (arrow_dir == 0)
 		{
-
-
-
 			iLine(arrow_x + 1662, arrow_y + 189, arrow_x + 1740, arrow_y + 350);
 			iLine(arrow_x + 1732, arrow_y + 346, arrow_x + 1740, arrow_y + 350);
 			iLine(arrow_x + 1744, arrow_y + 342, arrow_x + 1740, arrow_y + 350);
 		}
 		else if (arrow_dir == 2)
 		{
-
-
 			iLine(arrow_x + 1637, arrow_y + 189, arrow_x + 1560, arrow_y + 350);
 			iLine(arrow_x + 1556, arrow_y + 340, arrow_x + 1560, arrow_y + 350);
 			iLine(arrow_x + 1572, arrow_y + 345, arrow_x + 1560, arrow_y + 350);
@@ -166,18 +154,34 @@ void iDraw()
 	}
 	if (num_arrow < 0)
 	{
-		iText(800, 600, "GAME OVER", GLUT_BITMAP_TIMES_ROMAN_24);
+		iText(870, 600, "GAME OVER", GLUT_BITMAP_TIMES_ROMAN_24);
 	}
-	//iText(800, 600, "30", GLUT_BITMAP_TIMES_ROMAN_24);
-	cout << bird_x  << " " << bird_y  << endl;
-	if (!(arrow_x + 1500 >= bird_x + 50 || arrow_x + 1500 <= bird_x - 100) && (arrow_y + 0 <= bird_y + 900 && arrow_y + 300 >= bird_y + 900))
+	if (num_arrow == 0)
+	{
+		iSetColor(rand() % 255, rand() % 255, rand() % 255);
+		iText(870, 80, "LAST ARROW", GLUT_BITMAP_TIMES_ROMAN_24);
+	}
+
+	/**iText(800, 600, "30", GLUT_BITMAP_TIMES_ROMAN_24);
+	//cout << bird_x  << " " << bird_y  << endl;
+	if (!(arrow_x + 1500 >= bird_x + 50 || arrow_x + 1500 <= bird_x - 120) && (arrow_y + 300 >= bird_y + 900 && arrow_y + 300 <= bird_y + 950) && (arrow_dir == 1))
+	{
+		iText(800, 600, "wow", GLUT_BITMAP_TIMES_ROMAN_24);
+	}
+	else if (!(arrow_x + 1590 >= bird_x + 80 || arrow_x + 1590 <= bird_x - 100) && (arrow_y + 350 >= bird_y + 900 && arrow_y + 350 <= bird_y + 950) && (arrow_dir == 0))
+	{
+		iText(800, 600, "wow", GLUT_BITMAP_TIMES_ROMAN_24);
+	}
+	else if (!(arrow_x + 1500 >= bird_x + 70 || arrow_x + 1500 <= bird_x - 60) && (arrow_y + 350 >= bird_y + 900 && arrow_y + 350 <= bird_y + 950) && (arrow_dir ==  2))
 	{
 		iText(800, 600, "wow", GLUT_BITMAP_TIMES_ROMAN_24);
 	}
 	/**if (arrow_y + 120 <= bird_y + 900 && arrow_y + 300 >= bird_y + 900)
 	{
 		iText(800, 400, "Y same", GLUT_BITMAP_TIMES_ROMAN_24);
-	}**/
+	}
+	cout << arrow_x + 1590 <<  " " << bird_x + 50  << endl;
+	**/
 }
 
 
@@ -190,7 +194,8 @@ void change()
 		PlaySound(0, 0, 0);
 		PlaySound("Music//6.wav", NULL, SND_LOOP | SND_ASYNC);
 	}
-	if (!(arrow_x + 1500 >= bird_x + 50 || arrow_x + 1500 <= bird_x - 100) && (arrow_y + 120 <= bird_y + 900 && arrow_y + 300 >= bird_y + 900))
+	//if (!(arrow_x + 1500 >= bird_x + 50 || arrow_x + 1500 <= bird_x - 100) && (arrow_y + 120 <= bird_y + 900 && arrow_y + 300 >= bird_y + 900))
+	if (!(arrow_x + 1500 >= bird_x + 50 || arrow_x + 1500 <= bird_x - 120) && (arrow_y + 300 >= bird_y + 900 && arrow_y + 300 <= bird_y + 950) && (arrow_dir == 1))
 	{
 		bird_y -= 10;
 		arrow_y -= 10; 
@@ -200,7 +205,7 @@ void change()
 		{
 			ind = 0;
 			PlaySound(0,0,0);
-			PlaySound("Music//2.wav", NULL, SND_LOOP | SND_ASYNC);
+			PlaySound("Music//running.wav", NULL, SND_LOOP | SND_ASYNC);
 			bird_x = 0;
 			bird_y = 0;
 			arrow_y = 0;
@@ -208,8 +213,53 @@ void change()
 			release_arrow = 0;
 		}
 	}
+	else if (!(arrow_x + 1590 >= bird_x + 80 || arrow_x + 1590 <= bird_x - 100) && (arrow_y + 350 >= bird_y + 900 && arrow_y + 350 <= bird_y + 950) && (arrow_dir == 0))
+	{
+		{
+			bird_y -= 10;
+			arrow_y -= 10;
+			//bird_x += 5;
+			//arrow_x += 5;
+			ind++;
+
+			if (bird_y < -1000)
+			{
+				ind = 0;
+				PlaySound(0, 0, 0);
+				PlaySound("Music//running.wav", NULL, SND_LOOP | SND_ASYNC);
+				bird_x = 0;
+				bird_y = 0;
+				arrow_y = 0;
+				arrow_x = -700;
+				release_arrow = 0;
+			}
+		}
+	}
+	else if (!(arrow_x + 1500 >= bird_x + 140 || arrow_x + 1500 <= bird_x - 50) && (arrow_y + 350 >= bird_y + 890 && arrow_y + 350 <= bird_y + 910) && (arrow_dir == 2))
+	{
+		{
+			bird_y -= 10;
+			arrow_y -= 10;
+			//bird_x -= 5;
+			//arrow_x -= 5;
+			ind++;
+
+			if (bird_y < -1000)
+			{
+				ind = 0;
+				PlaySound(0, 0, 0);
+				PlaySound("Music//running.wav", NULL, SND_LOOP | SND_ASYNC);
+				bird_x = 0;
+				bird_y = 0;
+				arrow_y = 0;
+				arrow_x = -700;
+				release_arrow = 0;
+			}
+		}
+	}
 	else
 	{
+
 		bird_x += dx;
 		if (bird_x % 200 < 100)
 		{
@@ -342,7 +392,7 @@ int main()
 {
 	environment();
 	iSetTimer(16, change);
-	PlaySound("Music//2.wav", NULL, SND_LOOP | SND_ASYNC);
+	PlaySound("Music//running.wav", NULL, SND_LOOP | SND_ASYNC);
 	
 	iInitialize(scr_width, scr_height, "Birds Hunting");
 	
