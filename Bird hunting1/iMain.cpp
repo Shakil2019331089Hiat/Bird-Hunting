@@ -23,6 +23,10 @@ int tail_y;
 int up_peak_x, up_peak_y;
 int down_peak_x, down_peak_y;
 int peak_open;
+int string_potential;
+int arrow_speed;
+int string_x, string_y;
+
 void environment()
 {
 	ind = 0;
@@ -135,7 +139,10 @@ void iDraw()
 			iLine(bow_x + 1650, bow_y + 160, bow_x + 1700, bow_y + 190);
 			iLine(bow_x + 1700, bow_y + 190, bow_x + 1750, bow_y + 180);
 			iLine(bow_x + 1750, bow_y + 180, bow_x + 1800, bow_y + 120);
-			iLine(bow_x + 1500, bow_y + 120, bow_x + 1800, bow_y + 120);
+
+			//iLine(bow_x + 1500, bow_y + 120, bow_x + 1800, bow_y + 120);
+			iLine(bow_x + 1500, bow_y + 120, bow_x + string_x + 1650, bow_y + string_y + 120);
+			iLine(bow_x + string_x + 1650, bow_y + string_y + 120, bow_x + 1800, bow_y + 120);
 		}
 		else if (bow_dir == 0)
 		{
@@ -145,7 +152,11 @@ void iDraw()
 			iLine(bow_x + 1680, bow_y + 225, bow_x + 1650, bow_y + 275);
 			iLine(bow_x + 1650, bow_y + 275, bow_x + 1590, bow_y + 290);
 			iLine(bow_x + 1590, bow_y + 290, bow_x + 1525, bow_y + 258);
-			iLine(bow_x + 1525, bow_y + 258, bow_x + 1800, bow_y + 120);
+
+			//iLine(bow_x + 1525, bow_y + 258, bow_x + 1800, bow_y + 120);
+			iLine(bow_x + 1525, bow_y + 258, bow_x + string_x + 1662, bow_y + string_y + 189);
+			iLine(bow_x + string_x + 1662, bow_y + string_y + 189, bow_x + 1800, bow_y + 120);
+			
 		}
 		else if (bow_dir == 2)
 		{
@@ -155,7 +166,10 @@ void iDraw()
 			iLine(bow_x + 1620, bow_y + 225, bow_x + 1650, bow_y + 275);
 			iLine(bow_x + 1650, bow_y + 275, bow_x + 1710, bow_y + 290);
 			iLine(bow_x + 1710, bow_y + 290, bow_x + 1775, bow_y + 258);
-			iLine(bow_x + 1500, bow_y + 120, bow_x + 1775, bow_y + 258);
+
+			//iLine(bow_x + 1500, bow_y + 120, bow_x + 1775, bow_y + 258);
+			iLine(bow_x + 1500, bow_y + 120, bow_x + string_x + 1637, bow_y + string_y + 189);
+			iLine(bow_x + string_x + 1637, bow_y + string_y + 189, bow_x + 1775, bow_y + 258);
 		}
 
 	iSetColor(255, 0, 0);
@@ -163,19 +177,19 @@ void iDraw()
 	{
 		if (arrow_dir == 1)
 		{
-			iLine(arrow_x + 1650, arrow_y + 120, arrow_x + 1650, arrow_y + 300);
+			iLine(arrow_x + 1650, arrow_y + string_y + 120, arrow_x + 1650, arrow_y + 300);
 			iLine(arrow_x + 1643, arrow_y + 293, arrow_x + 1650, arrow_y + 300);
 			iLine(arrow_x + 1657, arrow_y + 293, arrow_x + 1650, arrow_y + 300);
 		}
 		else if (arrow_dir == 0)
 		{
-			iLine(arrow_x + 1662, arrow_y + 189, arrow_x + 1740, arrow_y + 350);
+			iLine(arrow_x +string_x + 1662, arrow_y +string_y + 189, arrow_x + 1740, arrow_y + 350);
 			iLine(arrow_x + 1732, arrow_y + 346, arrow_x + 1740, arrow_y + 350);
 			iLine(arrow_x + 1744, arrow_y + 342, arrow_x + 1740, arrow_y + 350);
 		}
 		else if (arrow_dir == 2)
 		{
-			iLine(arrow_x + 1637, arrow_y + 189, arrow_x + 1560, arrow_y + 350);
+			iLine(arrow_x + string_x + 1637, arrow_y + string_y + 189, arrow_x + 1560, arrow_y + 350);
 			iLine(arrow_x + 1556, arrow_y + 340, arrow_x + 1560, arrow_y + 350);
 			iLine(arrow_x + 1572, arrow_y + 345, arrow_x + 1560, arrow_y + 350);
 		}
@@ -189,32 +203,76 @@ void iDraw()
 		iSetColor(rand() % 255, rand() % 255, rand() % 255);
 		iText(870, 80, "LAST ARROW", GLUT_BITMAP_TIMES_ROMAN_24);
 	}
-	cout << kill << endl;
+	cout << string_potential  << arrow_y << endl;
 	iSetColor(0, 255,255);
 	iText(1600, 100, str, GLUT_BITMAP_TIMES_ROMAN_24);
 	iText(1680, 100, scr, GLUT_BITMAP_TIMES_ROMAN_24);
-	/**iText(800, 600, "30", GLUT_BITMAP_TIMES_ROMAN_24);
+
 	
-	if (!(arrow_x + 1500 >= bird_x + 50 || arrow_x + 1500 <= bird_x - 120) && (arrow_y + 300 >= bird_y + 900 && arrow_y + 300 <= bird_y + 950) && (arrow_dir == 1))
-	{
-		iText(800, 600, "wow", GLUT_BITMAP_TIMES_ROMAN_24);
-	}
-	else if (!(arrow_x + 1590 >= bird_x + 80 || arrow_x + 1590 <= bird_x - 100) && (arrow_y + 350 >= bird_y + 900 && arrow_y + 350 <= bird_y + 950) && (arrow_dir == 0))
-	{
-		iText(800, 600, "wow", GLUT_BITMAP_TIMES_ROMAN_24);
-	}
-	else if (!(arrow_x + 1500 >= bird_x + 70 || arrow_x + 1500 <= bird_x - 60) && (arrow_y + 350 >= bird_y + 900 && arrow_y + 350 <= bird_y + 950) && (arrow_dir ==  2))
-	{
-		iText(800, 600, "wow", GLUT_BITMAP_TIMES_ROMAN_24);
-	}
-	/**if (arrow_y + 120 <= bird_y + 900 && arrow_y + 300 >= bird_y + 900)
-	{
-		iText(800, 400, "Y same", GLUT_BITMAP_TIMES_ROMAN_24);
-	}
-	cout << arrow_x + 1590 <<  " " << bird_x + 50  << endl;
-	**/
 }
 
+void string_condition()
+{
+	if (arrow_y + 200 > scr_height)
+	{
+		string_potential = 0;
+	}
+
+
+	if (string_potential == 0)
+	{
+		arrow_speed = 3;
+		if (arrow_y > 150)
+		{
+			arrow_y  = scr_height + 200;
+		}
+
+
+		string_x = 0;
+		string_y = 0;
+	}
+	else if (string_potential == 1)
+	{
+		arrow_speed = 10;
+
+		if (bow_dir == 0)
+		{
+			string_x = -15;
+			string_y = -25;
+		}
+		else if (bow_dir == 1)
+		{
+			string_x = 0;
+			string_y = -20;
+		}
+		else if (bow_dir == 2)
+		{
+			string_x = 15;
+			string_y = -25;
+		}
+	}
+	else if (string_potential == 2)
+	{
+		arrow_speed = 20;
+
+		if (bow_dir == 0)
+		{
+			string_x = -30;
+			string_y = -50;
+		}
+		else if (bow_dir == 1)
+		{
+			string_x = 0;
+			string_y = -40;
+		}
+		else if (bow_dir == 2)
+		{
+			string_x = 30;
+			string_y = -50;
+		}
+	}
+
+}
 void peak()
 {
 	if (peak_open)
@@ -254,6 +312,7 @@ void birds_path_hit_or_not()
 		bird_y -= 10;
 		arrow_y -= 10;
 		ind++;
+		
 		if (bird_y < -1000)
 		{
 			ind = 0;
@@ -263,10 +322,12 @@ void birds_path_hit_or_not()
 			arrow_y = 0;
 			arrow_x = -700;
 			release_arrow = 0;
+			string_potential = 0;
 		}
 	}
 	else if (!(arrow_x + 1590 >= bird_x + 80 || arrow_x + 1590 <= bird_x - 100) && (arrow_y + 350 >= bird_y + 900 && arrow_y + 350 <= bird_y + 950) && (arrow_dir == 0))
 	{
+		
 		peak_open = 0;
 		bird_y -= 10;
 		arrow_y -= 10;
@@ -283,10 +344,12 @@ void birds_path_hit_or_not()
 			arrow_y = 0;
 			arrow_x = -700;
 			release_arrow = 0;
+			string_potential = 0;
 		}
 	}
 	else if (!(arrow_x + 1500 >= bird_x + 140 || arrow_x + 1500 <= bird_x - 50) && (arrow_y + 350 >= bird_y + 890 && arrow_y + 350 <= bird_y + 910) && (arrow_dir == 2))
 	{
+		
 		peak_open = 0;
 		bird_y -= 10;
 		arrow_y -= 10;
@@ -302,11 +365,11 @@ void birds_path_hit_or_not()
 			arrow_y = 0;
 			arrow_x = -700;
 			release_arrow = 0;
+			string_potential = 0;
 		}
 	}
 	else
 	{
-
 		bird_x += dx;
 		if (bird_x % 200 < 100)
 		{
@@ -328,17 +391,17 @@ void birds_path_hit_or_not()
 		}
 		if (arrow_dir == 1 && release_arrow == 1 && arrow_y <= scr_height)
 		{
-			arrow_y += 10 - arrow_y / 200;
+			arrow_y += arrow_speed - arrow_y / 200;
 		}
 		if (arrow_dir == 0 && release_arrow == 1 && arrow_y <= scr_height)
 		{
-			arrow_y += 10 - arrow_y / 200;
-			arrow_x += 4 + arrow_y / 100;
+			arrow_y += arrow_speed - arrow_y / 200;
+			arrow_x += (arrow_speed / 2) + arrow_y / 100;
 		}
 		if (arrow_dir == 2 && release_arrow == 1 && arrow_y <= scr_height)
 		{
-			arrow_y += 10 - arrow_y / 200;
-			arrow_x -= 4 + arrow_y / 100;
+			arrow_y += arrow_speed - arrow_y / 200;
+			arrow_x -= (arrow_speed / 2) + arrow_y / 100;
 		}
 		if (arrow_y + 100 > scr_height)
 		{
@@ -388,6 +451,7 @@ void change()
 	peak();
 	birds_path_hit_or_not();
 	tail();
+	string_condition();
 }
 
 
@@ -424,7 +488,7 @@ void iMouse(int button, int state, int mx, int my)
 
 void iKeyboard(unsigned char key)
 {
-	if (key == '\r')
+	if (key == 'r')
 	{
 		release_arrow = 1;
 	}
@@ -439,20 +503,57 @@ void iSpecialKeyboard(unsigned char key)
 	
 	if (key == GLUT_KEY_RIGHT)
 	{
-		bow_dir = 0;
+		if (bow_dir == 2)
+		{
+			bow_dir = 1;
+		}
+		else
+		{
+			bow_dir = 0;
+		}
+		
+
 	}
 	if (key == GLUT_KEY_LEFT)
 	{
-		bow_dir = 2;
+		if (bow_dir == 0)
+		{
+			bow_dir = 1;
+		}
+		else
+		{
+			bow_dir = 2;
+		}
+		
 	}
 	if (key == GLUT_KEY_UP)
 	{
-		
-		release_arrow = 1;
+		if (arrow_y == 0)
+		{
+			if (string_potential == 2)
+			{
+				string_potential = 1;
+			}
+			else
+			{
+				string_potential = 0;
+			}
+		}
 	}
 	if (key == GLUT_KEY_DOWN)
 	{
-		bow_dir = 1;
+		if (arrow_y == 0)
+		{
+
+			if (string_potential == 0)
+			{
+				string_potential = 1;
+			}
+			else
+			{
+				string_potential = 2;
+			}
+		}
 	}
 	
 	if (key == GLUT_KEY_HOME)
