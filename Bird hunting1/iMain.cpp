@@ -70,6 +70,7 @@ void environment()
 	bow_x = -700;
 	
 	arrow_x = -700;
+	arrow_y = 0;
 	bow_dir = 1;
 	arrow_dir = bow_dir;
 
@@ -1242,7 +1243,7 @@ void iSpecialKeyboard(unsigned char key)
 
 int main()
 {
-	environment();
+	environment();		//
 	
 	iSetTimer(16, change);
 	
