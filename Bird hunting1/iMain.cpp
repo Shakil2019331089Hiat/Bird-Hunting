@@ -46,6 +46,7 @@ int write_x, write_y;
 bool start;
 bool instruction;
 bool dev;
+bool pause;
 int box;
 
 void environment()
@@ -54,6 +55,7 @@ void environment()
 	start = false;
 	instruction = false;
 	dev = false;
+	pause = false;
 
 	string_potential = 0;
 	kill = 0;
@@ -120,7 +122,16 @@ void iDraw()
 		iSetColor(0, 0, 0);
 		iFilledRectangle(840,670,200, 80);
 		iSetColor(0,rand() % 255,0);
-		iText(900, 700, "START", GLUT_BITMAP_TIMES_ROMAN_24);
+
+		if (pause)
+		{
+			iText(880, 700, "CONTINUE", GLUT_BITMAP_TIMES_ROMAN_24);
+		}
+		else
+		{
+			iText(900, 700, "START", GLUT_BITMAP_TIMES_ROMAN_24);
+		}
+
 		
 		iSetColor( 0, 0, 0);
 		iFilledRectangle(790, 500, 300, 80);
@@ -235,9 +246,10 @@ void iDraw()
 		iSetColor(00, 0, 255);
 		iFilledEllipse(bird_x + 1300, bird_y + 900, 5, 5);
 		
-		iSetColor(255, 0, 0);
+		iSetColor(20, 20, 255);
 
 		iLine(arrow_x + 1650, arrow_y + string_y + 820, arrow_x + 1650, arrow_y + 1000);
+		iLine(arrow_x + 1650, arrow_y + string_y + 820, arrow_x + 1651, arrow_y + 1000);
 		iLine(arrow_x + 1643, arrow_y + 993, arrow_x + 1650, arrow_y + 1000);
 		iLine(arrow_x + 1657, arrow_y + 993, arrow_x + 1650, arrow_y + 1000);
 
@@ -264,13 +276,13 @@ void iDraw()
 		iSetColor(0, 255, 0);
 		iText(800, 900, "BIRD HUNTING", GLUT_BITMAP_TIMES_ROMAN_24);
 		iSetColor(0, 255, 0);
-		iText(100, 800, "GAME INFO and CONTROL : The game is developed using only C++ programming language and the title of the game is \"Bird Hunting\".  In this game you can control your bow by ", GLUT_BITMAP_TIMES_ROMAN_24);
-		iText(100, 750, "right and left key and keep it in threee different direction.  You get a primary arrow attached with bow and 5 more arrow beside the bow. You can adjust your arrow string ", GLUT_BITMAP_TIMES_ROMAN_24);
-		iText(100, 700, "according to your need of speed. To do this you have to use up and down key before release your arrow. You will release your arrow by using \"R\" key. ", GLUT_BITMAP_TIMES_ROMAN_24);
+		iText(100, 800, "GAME INFO and CONTROL: The game is developed using only C++ programming language and the title of the game is \"Bird Hunting\". In this game you can control", GLUT_BITMAP_TIMES_ROMAN_24);
+		iText(100, 750, "your bow by right and left key and keep it in threee different direction. You get a primary arrow attached with bow and 5 more arrow beside the bow. You can adjust ", GLUT_BITMAP_TIMES_ROMAN_24);
+		iText(100, 700, "your bow string according to your need of speed. To do this you have to use up and down key before release your arrow. You will release your arrow by using \"R\" key. ", GLUT_BITMAP_TIMES_ROMAN_24);
 		iText(100, 600, "REWARDS and OPPORTUNITIES : You will be given specific number of birds locating after \"birds remaining\" term initially.  If you will able to hunt it or it will disappeare", GLUT_BITMAP_TIMES_ROMAN_24);
-		iText(100, 550, "then it meaans 1 bird has gone. By hunting one general bird (Blue) you will get 1 points. By hunting a special gold bird (Golden) you will get 5 points. If you hunt a devil", GLUT_BITMAP_TIMES_ROMAN_24);
-		iText(100, 500, "bird (Red) you will lost an arrow with no benefit. The game will over when you will have no arrow left or no bird remaining.", GLUT_BITMAP_TIMES_ROMAN_24);
-		iText(100, 450, "", GLUT_BITMAP_TIMES_ROMAN_24);
+		iText(100, 550, "then it meaans 1 bird has gone. By hunting one general bird (Blue) you will get 1 points. By hunting a special gold bird (Golden) you will get  extra 5 points. If you hunt ", GLUT_BITMAP_TIMES_ROMAN_24);
+		iText(100, 500, "a devil bird (Red) you will lost an arrow with no benefit. If you can make a headshot you will get extra 5 points. Remember that, even headshot is not applicable to Devil", GLUT_BITMAP_TIMES_ROMAN_24);
+		iText(100, 450, "bird. The game will over when you will have no arrow left or no bird remaining.", GLUT_BITMAP_TIMES_ROMAN_24);
 		iText(100, 400, "", GLUT_BITMAP_TIMES_ROMAN_24);
 		
 		iSetColor(255, 255, 255);
@@ -307,7 +319,7 @@ void iDraw()
 		iSetColor(0, 50, 50);
 		iFilledRectangle(1690, 70, 200, 80);
 		iSetColor(255, 255, 0);
-		iText(1750, 100, "QUITE", GLUT_BITMAP_TIMES_ROMAN_24);
+		iText(1750, 100, "QUIT", GLUT_BITMAP_TIMES_ROMAN_24);
 
 
 		if (bird_x == 0)
@@ -529,9 +541,19 @@ void iDraw()
 
 
 
-		iSetColor(255, 255, 255);
+		iSetColor(0, 0, 255);
 		if (bow_dir == 1)
 		{
+
+			//bow string
+
+			iSetColor(255, 255, 255);
+			//iLine(bow_x + 1500, bow_y + 120, bow_x + 1800, bow_y + 120);
+			iLine(bow_x + 1500, bow_y + 120, bow_x + string_x + 1650, bow_y + string_y + 120);
+			iLine(bow_x + string_x + 1650, bow_y + string_y + 120, bow_x + 1800, bow_y + 120);
+
+
+			iSetColor(0, 0, 255);
 			iLine(bow_x + 1500, bow_y + 120, bow_x + 1550, bow_y + 180);
 			iLine(bow_x + 1550, bow_y + 180, bow_x + 1600, bow_y + 190);
 			iLine(bow_x + 1600, bow_y + 190, bow_x + 1650, bow_y + 160);
@@ -539,12 +561,58 @@ void iDraw()
 			iLine(bow_x + 1700, bow_y + 190, bow_x + 1750, bow_y + 180);
 			iLine(bow_x + 1750, bow_y + 180, bow_x + 1800, bow_y + 120);
 
-			//iLine(bow_x + 1500, bow_y + 120, bow_x + 1800, bow_y + 120);
-			iLine(bow_x + 1500, bow_y + 120, bow_x + string_x + 1650, bow_y + string_y + 120);
-			iLine(bow_x + string_x + 1650, bow_y + string_y + 120, bow_x + 1800, bow_y + 120);
+
+			iLine(bow_x + 1502, bow_y + 120, bow_x + 1552, bow_y + 180);
+			iLine(bow_x + 1550, bow_y + 178, bow_x + 1600, bow_y + 188);
+			iLine(bow_x + 1600, bow_y + 188, bow_x + 1650, bow_y + 158);
+			iLine(bow_x + 1650, bow_y + 158, bow_x + 1700, bow_y + 188);
+			iLine(bow_x + 1700, bow_y + 188, bow_x + 1750, bow_y + 178);
+			iLine(bow_x + 1748, bow_y + 180, bow_x + 1798, bow_y + 120);
+
+			
+			
+			/**
+			iFilledCircle(bow_x + 1553, 174, 5);
+			iFilledCircle(bow_x + 1650, 165, 5);
+			iFilledCircle(bow_x + 1600, 183, 5);
+			iFilledCircle(bow_x + 1748, 175, 5);
+			iFilledCircle(bow_x + 1702, 183, 5);
+			**/
+
+			//bow extension
+			iLine(bow_x + 1800, 120, bow_x + 1810, 120);
+			iLine(bow_x + 1797, 122, bow_x + 1808, 122);
+
+			iLine(bow_x + 1810, 120, bow_x + 1815, 130);
+			iLine(bow_x + 1808, 122, bow_x + 1813, 130);
+
+			iLine(bow_x + 1813, 130, bow_x + 1815, 130);
+
+
+			iLine(bow_x + 1500, 120, bow_x + 1490, 120);
+			iLine(bow_x + 1503, 122, bow_x + 1492, 122);
+
+			iLine(bow_x + 1490, 120, bow_x + 1485, 130);
+			iLine(bow_x + 1492, 122, bow_x + 1487, 130);
+
+			iLine(bow_x + 1487, 130, bow_x + 1485, 130);
+
+
+			iSetColor(255, 255, 0);
+			iFilledCircle(bow_x + 1502, 122, 3);
+			iFilledCircle(bow_x + 1798, 122, 3);
+			
 		}
 		else if (bow_dir == 0)
 		{
+			//bow string
+			iSetColor(255, 255, 255);
+			//iLine(bow_x + 1525, bow_y + 258, bow_x + 1800, bow_y + 120);
+			iLine(bow_x + 1525, bow_y + 258, bow_x + string_x + 1662, bow_y + string_y + 189);
+			iLine(bow_x + string_x + 1662, bow_y + string_y + 189, bow_x + 1800, bow_y + 120);
+
+
+			iSetColor(0, 0, 255);
 			iLine(bow_x + 1800, bow_y + 120, bow_x + 1785, bow_y + 195);
 			iLine(bow_x + 1785, bow_y + 195, bow_x + 1735, bow_y + 235);
 			iLine(bow_x + 1735, bow_y + 235, bow_x + 1680, bow_y + 225);
@@ -552,13 +620,55 @@ void iDraw()
 			iLine(bow_x + 1650, bow_y + 275, bow_x + 1590, bow_y + 290);
 			iLine(bow_x + 1590, bow_y + 290, bow_x + 1525, bow_y + 258);
 
-			//iLine(bow_x + 1525, bow_y + 258, bow_x + 1800, bow_y + 120);
-			iLine(bow_x + 1525, bow_y + 258, bow_x + string_x + 1662, bow_y + string_y + 189);
-			iLine(bow_x + string_x + 1662, bow_y + string_y + 189, bow_x + 1800, bow_y + 120);
+			iLine(bow_x + 1798, bow_y + 120, bow_x + 1783, bow_y + 195);
+			iLine(bow_x + 1785, bow_y + 193, bow_x + 1735, bow_y + 233);
+			iLine(bow_x + 1735, bow_y + 233, bow_x + 1680, bow_y + 223);
+			iLine(bow_x + 1679, bow_y + 223, bow_x + 1649, bow_y + 273);
+			iLine(bow_x + 1650, bow_y + 273, bow_x + 1590, bow_y + 288);
+			iLine(bow_x + 1590, bow_y + 288, bow_x + 1526, bow_y + 256);
+
+			/**
+			
+			iFilledCircle(bow_x + 1550, 175, 5);
+			iFilledCircle(bow_x + 1650, 165, 5);
+			iFilledCircle(bow_x + 1600, 185, 5);
+			iFilledCircle(bow_x + 1745, 175, 5);
+			iFilledCircle(bow_x + 1700, 185, 5);
+			**/
+
+			//bow extension
+			iLine(bow_x + 1800, 120, bow_x + 1810, 115);
+			iLine(bow_x + 1800, 123, bow_x + 1810, 118);
+
+			iLine(bow_x + 1810, 115, bow_x + 1822, 122);
+			iLine(bow_x + 1810, 118, bow_x + 1822, 124);
+
+			iLine(bow_x + 1822, 122, bow_x + 1822, 124);
+
+
+			iLine(bow_x + 1525, 256, bow_x + 1512, 264);
+			iLine(bow_x + 1525, 259, bow_x + 1515, 265);
+
+			iLine(bow_x + 1512, 264, bow_x + 1514, 278);
+			iLine(bow_x + 1515, 265, bow_x + 1514, 278);
+
+			iLine(bow_x + 1513, 278, bow_x + 1514, 278);
+
+			iSetColor(255, 255, 0);
+			iFilledCircle(bow_x + 1526, 258, 3);
+			iFilledCircle(bow_x + 1800, 122, 3);
+
+			
 
 		}
 		else if (bow_dir == 2)
 		{
+			iSetColor(255, 255, 255);
+			//iLine(bow_x + 1500, bow_y + 120, bow_x + 1775, bow_y + 258);
+			iLine(bow_x + 1500, bow_y + 120, bow_x + string_x + 1637, bow_y + string_y + 189);
+			iLine(bow_x + string_x + 1637, bow_y + string_y + 189, bow_x + 1775, bow_y + 258);
+
+			iSetColor(0, 0, 255);
 			iLine(bow_x + 1500, bow_y + 120, bow_x + 1515, bow_y + 195);
 			iLine(bow_x + 1515, bow_y + 195, bow_x + 1565, bow_y + 235);
 			iLine(bow_x + 1565, bow_y + 235, bow_x + 1620, bow_y + 225);
@@ -566,38 +676,80 @@ void iDraw()
 			iLine(bow_x + 1650, bow_y + 275, bow_x + 1710, bow_y + 290);
 			iLine(bow_x + 1710, bow_y + 290, bow_x + 1775, bow_y + 258);
 
-			//iLine(bow_x + 1500, bow_y + 120, bow_x + 1775, bow_y + 258);
-			iLine(bow_x + 1500, bow_y + 120, bow_x + string_x + 1637, bow_y + string_y + 189);
-			iLine(bow_x + string_x + 1637, bow_y + string_y + 189, bow_x + 1775, bow_y + 258);
+			iLine(bow_x + 1502, bow_y + 120, bow_x + 1517, bow_y + 195);
+			iLine(bow_x + 1516, bow_y + 193, bow_x + 1566, bow_y + 233);
+			iLine(bow_x + 1565, bow_y + 233, bow_x + 1620, bow_y + 223);
+			iLine(bow_x + 1622, bow_y + 224, bow_x + 1652, bow_y + 274);
+			iLine(bow_x + 1650, bow_y + 273, bow_x + 1710, bow_y + 288);
+			iLine(bow_x + 1710, bow_y + 288, bow_x + 1775, bow_y + 256);
+
+			
+			//bow extension
+			iLine(bow_x + 1500, 120, bow_x + 1490, 115);
+			iLine(bow_x + 1500, 123, bow_x + 1490, 118);
+
+			iLine(bow_x + 1490, 115, bow_x + 1478, 122);
+			iLine(bow_x + 1490, 118, bow_x + 1478, 124);
+
+			iLine(bow_x + 1478, 122, bow_x + 1478, 124);
+
+
+			iLine(bow_x + 1775, 256, bow_x + 1788, 264);
+			iLine(bow_x + 1775, 259, bow_x + 1785, 265);
+
+			iLine(bow_x + 1788, 264, bow_x + 1786, 278);
+			iLine(bow_x + 1785, 265, bow_x + 1786, 278);
+
+			//iLine(bow_x + 1513, 278, bow_x + 1514, 278);
+
+
+			iSetColor(255, 255, 0);
+			iFilledCircle(bow_x + 1775, 258, 3);
+			iFilledCircle(bow_x + 1502, 122, 3);
 		}
 
-		iSetColor(255, 0, 0);
+		iSetColor(255, 0, 255);
 		if (num_arrow >= 0)
 		{
 			if (arrow_dir == 1)
 			{
 				iLine(arrow_x + 1650, arrow_y + string_y + 120, arrow_x + 1650, arrow_y + 300);
+				iLine(arrow_x + 1650, arrow_y + string_y + 120, arrow_x + 1651, arrow_y + 300);
+				iLine(arrow_x + 1650, arrow_y + string_y + 120, arrow_x + 1649, arrow_y + 300);
+
 				iLine(arrow_x + 1643, arrow_y + 293, arrow_x + 1650, arrow_y + 300);
+				iLine(arrow_x + 1644, arrow_y + 293, arrow_x + 1650, arrow_y + 300);
+				iLine(arrow_x + 1642, arrow_y + 293, arrow_x + 1650, arrow_y + 300);
+
 				iLine(arrow_x + 1657, arrow_y + 293, arrow_x + 1650, arrow_y + 300);
+				iLine(arrow_x + 1658, arrow_y + 293, arrow_x + 1650, arrow_y + 300);
+				iLine(arrow_x + 1656, arrow_y + 293, arrow_x + 1650, arrow_y + 300);
 			}
 			else if (arrow_dir == 0)
 			{
 				iLine(arrow_x + string_x + 1662, arrow_y + string_y + 189, arrow_x + 1740, arrow_y + 350);
-				iLine(arrow_x + 1732, arrow_y + 346, arrow_x + 1740, arrow_y + 350);
-				iLine(arrow_x + 1744, arrow_y + 342, arrow_x + 1740, arrow_y + 350);
+				iLine(arrow_x + string_x + 1663, arrow_y + string_y + 190, arrow_x + 1741, arrow_y + 350);
+				iLine(arrow_x + string_x + 1661, arrow_y + string_y + 188, arrow_x + 1740, arrow_y + 350);
+
+				iLine(arrow_x + 1727, arrow_y + 345, arrow_x + 1740, arrow_y + 350);
+				iLine(arrow_x + 1745, arrow_y + 339, arrow_x + 1740, arrow_y + 350);
 			}
 			else if (arrow_dir == 2)
 			{
 				iLine(arrow_x + string_x + 1637, arrow_y + string_y + 189, arrow_x + 1560, arrow_y + 350);
-				iLine(arrow_x + 1556, arrow_y + 340, arrow_x + 1560, arrow_y + 350);
+				iLine(arrow_x + string_x + 1638, arrow_y + string_y + 188, arrow_x + 1561, arrow_y + 350);
+				iLine(arrow_x + string_x + 1636, arrow_y + string_y + 190, arrow_x + 1560, arrow_y + 350);
+
+				iLine(arrow_x + 1555, arrow_y + 338, arrow_x + 1560, arrow_y + 350);
 				iLine(arrow_x + 1572, arrow_y + 345, arrow_x + 1560, arrow_y + 350);
 			}
 		}
 
 		if (bird_y < -50 && special_bird == gold)
 		{
-
 			iSetColor(255, 255, 0);
+			iText(800, 600, "SPECIAL BIRD:     +5 POINTS", GLUT_BITMAP_TIMES_ROMAN_24);
+			/**
 			iFilledRectangle(write_x, write_y, 60, 15);
 			iFilledRectangle(write_x, write_y - 60, 15, 60);
 			iFilledRectangle(write_x, write_y - 60, 60, 15);
@@ -641,7 +793,16 @@ void iDraw()
 
 			iFilledRectangle(write_x + 550, write_y - 130, 15, 30);
 			iFilledRectangle(write_x + 595, write_y - 30, 15, 30);
+			**/
 		}
+		else if (bird_y < -50 && special_bird == devil)
+		{
+			iSetColor(255, 0, 0);
+			iText(780, 600, "!!!DEVIL BIRD!!! :     LOST 1 ARROW", GLUT_BITMAP_TIMES_ROMAN_24);
+		}
+
+
+
 
 		if (num_arrow < 0)
 		{
@@ -668,6 +829,20 @@ void iDraw()
 		}
 
 	}
+	iSetColor(255, 255, 0);
+	if ((arrow_x + 1500 <= bird_x + 50 && arrow_x + 1500 >= bird_x + 20) && (arrow_y + 300 >= bird_y + 900 && arrow_y + 300 <= bird_y + 950) && arrow_dir == 1 && special_bird != devil && ind > 1 && start == true)
+	{
+		iText(770, 450, "PERFECT HEADSHOT:  +5 POINTS", GLUT_BITMAP_TIMES_ROMAN_24);
+	}
+	if ((arrow_x + 1590 <= bird_x + 80 && arrow_x + 1590 >= bird_x + 20) && (arrow_y + 350 >= bird_y + 900 && arrow_y + 350 <= bird_y + 950) && arrow_dir == 0 && special_bird != devil && ind > 1 && start == true)
+	{
+		iText(770, 450, "PERFECT HEADSHOT:  +5 POINTS", GLUT_BITMAP_TIMES_ROMAN_24);
+	}
+	if ((arrow_x + 1500 <= bird_x + 140 && arrow_x + 1500 >= bird_x + 100) && (arrow_y + 350 >= bird_y + 890 && arrow_y + 350 <= bird_y + 910) && arrow_dir == 2 && special_bird != devil && ind > 1 && start == true)
+	{
+		iText(770, 450, "PERFECT HEADSHOT:  +5 POINTS", GLUT_BITMAP_TIMES_ROMAN_24);
+	}
+	cout << ind << endl;
 	///////////////////////////////////////////////////////////////////////////////// obstacle part ////////////////////////////////////////////////////////////////////////////
 	/**
 	iSetColor(255, 50, 30);
@@ -850,6 +1025,7 @@ void birds_path_hit_or_not()
 {
 	if (!(arrow_x + 1500 >= bird_x + 50 || arrow_x + 1500 <= bird_x - 120) && (arrow_y + 300 >= bird_y + 900 && arrow_y + 300 <= bird_y + 950) && (arrow_dir == 1))
 	{
+		
 		obstacle_on = false;
 		peak_open = 0;
 		bird_y -= 10;
@@ -858,11 +1034,16 @@ void birds_path_hit_or_not()
 		
 		if (bird_y < -1000)
 		{
+			if ((arrow_x + 1500 <= bird_x + 50 && arrow_x + 1500 >= bird_x + 20) && (arrow_y + 300 >= bird_y + 900 && arrow_y + 300 <= bird_y + 950) && special_bird != devil)
+			{
+				kill += 5;
+			}
+
 			if (special_bird == gold)
 			{
 				kill += 5;
 			}
-			else if (special_bird == devil)
+			if (special_bird == devil)
 			{
 				num_arrow--;
 			}
@@ -896,11 +1077,15 @@ void birds_path_hit_or_not()
 
 		if (bird_y < -1000)
 		{
+			if ((arrow_x + 1590 <= bird_x + 80 && arrow_x + 1590 >= bird_x + 20) && (arrow_y + 350 >= bird_y + 900 && arrow_y + 350 <= bird_y + 950) && special_bird != devil)
+			{
+				kill += 5;
+			}
 			if (special_bird == gold)
 			{
 				kill += 5;
 			}
-			else if (special_bird == devil)
+			if (special_bird == devil)
 			{
 				num_arrow--;
 			}
@@ -933,11 +1118,17 @@ void birds_path_hit_or_not()
 		ind++;
 		if (bird_y < -1000)
 		{
+
+			if ((arrow_x + 1500 <= bird_x + 140 && arrow_x + 1500 >= bird_x + 100) && (arrow_y + 350 >= bird_y + 890 && arrow_y + 350 <= bird_y + 910) && special_bird != devil)
+			{
+				kill += 5;
+			}
+
 			if (special_bird == gold)
 			{
 				kill += 5;
 			}
-			else if (special_bird == devil)
+			if (special_bird == devil)
 			{
 				num_arrow--;
 			}
@@ -1022,19 +1213,22 @@ void sound()
 	}
 	if (bird_x == 0 && num_arrow >= 0)
 	{
+		PlaySound(0, 0, 0);
 		PlaySound("Music//running.wav", NULL, SND_LOOP | SND_ASYNC);
 	}
-
+	/**
 	if (bird_x % 1000 > 200 && bird_x % 1000 < 250 && num_arrow >= 0)
 	{
+		PlaySound(0, 0, 0);
 		PlaySound("Music//hawk.wav", NULL, SND_LOOP | SND_ASYNC);
 
 	}
-	else if (bird_x % 1000 > 500 && bird_x % 1000 < 550 && num_arrow >= 0)
+	if (bird_x % 1000 > 500 && bird_x % 1000 < 550 && num_arrow >= 0)
 	{
+		PlaySound(0, 0, 0);
 		PlaySound("Music//running.wav", NULL, SND_LOOP | SND_ASYNC);
 	}
-
+	**/
 
 }
 void change()
@@ -1096,10 +1290,12 @@ void iMouse(int button, int state, int mx, int my)
 		if (mx > 840 && mx < 1040 && my > 670 && my < 750 && start == false && instruction == false && dev == false)
 		{
 			start = true;
+			PlaySound(0, 0, 0);
 			PlaySound("Music//running.wav", NULL, SND_LOOP | SND_ASYNC);
 		}
 		else if (mx > 40 && mx < 240 && my > 70 && my < 150 && start == true && instruction == false && dev == false)
 		{
+			pause = true;
 			start = false;
 			instruction = false;
 			dev = false;
@@ -1114,6 +1310,7 @@ void iMouse(int button, int state, int mx, int my)
 			instruction = false;
 			dev = false;
 			PlaySound(0, 0, 0);
+			PlaySound("Music//sand.wav", NULL, SND_LOOP | SND_ASYNC);
 			environment();
 		}
 
@@ -1243,11 +1440,11 @@ void iSpecialKeyboard(unsigned char key)
 
 int main()
 {
-	environment();		//
+	environment();		
 	
 	iSetTimer(16, change);
 	
-	//PlaySound("Music//sand.wav", NULL, SND_LOOP | SND_ASYNC);
+	PlaySound("Music//sand.wav", NULL, SND_LOOP | SND_ASYNC);
 	iInitialize(scr_width, scr_height, "Birds Hunting");
 	
 	iStart();
